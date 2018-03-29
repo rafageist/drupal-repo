@@ -9,17 +9,9 @@
  
 $filter = null;
 $letter = null;
-$ignore = null;
 
 if (isset($_SERVER['argv'][1])) $filter = $_SERVER['argv'][1];
 if (isset($_SERVER['argv'][2])) $letter = $_SERVER['argv'][2];
-
-if ($letter == 'ignore') {
-	$ignore = 'ignore'; 
-	$letter = null;
-}
-
-if (isset($_SERVER['argv'][3])) $ignore = $_SERVER['argv'][3];
 
 $f = fopen("./projects", "r");
 
@@ -50,7 +42,6 @@ while (!feof($f)) {
 
 			if ($l != $lastletter) echo $l."\t";
 			$lastletter = $l;
-			if (file_exists("./drupal/$l/$n") && $ignore === 'ignore') continue;
 			@mkdir("./drupal/$l");
 			fputs($f2, "wget -c -O ./drupal/$l/$n https://ftp.drupal.org/files/projects/$n\n");
 		}
